@@ -22,22 +22,20 @@ app.post("/", function (req, res) {
 });
 
 app.post("/bmicalculator", function (req, res) {
-  var weight = Number(req.body.weight);
-  var height = Number(req.body.height);
+  var weight = parseFloat(req.body.weight);
+  var height = parseFloat(req.body.height);
 
-  var bmi = weight / (height ** 2);
+  var bmi = weight / (height * height);
 
   if (bmi < 18.5) {
-    res.send("Your BMI is: " + bmi + "Wich is underweight.");
+    res.send("Your BMI is: " + Math.round(bmi) + " Wich is underweight.");
   } else if (bmi < 25) {
-    res.send("Your BMI is: " + bmi + "Wich is normal.");
+    res.send("Your BMI is: " + Math.round(bmi) + " Wich is normal.");
   } else if (bmi < 30) {
-    res.send("Your BMI is: " + bmi + "Wich is overweight.");
+    res.send("Your BMI is: " + Math.round(bmi) + " Wich is overweight.");
   } else {
-    res.send("Your BMI is: " + bmi + "Wich is obesee.");;
+    res.send("Your BMI is: " + Math.round(bmi) + " Wich is obesee.");;
   }
-
-  
 });
 
 app.listen(3000, function () {
