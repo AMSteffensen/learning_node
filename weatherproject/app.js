@@ -1,7 +1,7 @@
 const express = require('express')
 const https = require('https');
 const bodyParser = require("body-parser")
-
+const { endpoint, masterKey, port } = require("./config");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -12,10 +12,9 @@ app.get("/", function(req, res){
 
 app.post("/", function(req, res){
     let query = req.body.cityName
-    let units = "metric"
-    const API_KEY = "0073631a9ef66e0049a7dcd9df8cf450"
-    const API_BASE_URL = "https://api.openweathermap.org"
-    const url = `${API_BASE_URL}/data/2.5/weather?q=${query}&appid=${API_KEY}&units=${units}`
+    url = `${endpoint}/data/2.5/weather?q=${query}&appid=${masterKey}&units=metric`
+    console.log(`Your api url is ${url}`);
+    
     https.get(url, function(response) {
 
         response.on("data", function(data){
