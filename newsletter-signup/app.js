@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const https = require("https");
 const { Http2ServerRequest } = require("http2");
 const { request } = require("http");
+const { endpoint, masterKey, list } = require("./config");
 const app = express();
 app.use(express.static("public"));
 
@@ -34,11 +35,13 @@ app.post("/", function (req, res) {
 
   const jsonData = JSON.stringify(data);
 
-  const url = "https://us7.api.mailchimp.com/3.0/lists/54a4e09e03";
+  url = `${endpoint}/${list}`
+  console.log(url)
 
   const options = {
     method: "POST",
-    auth: "andreas:cdf9024e8b2db2ca66ec2e49c1ac8325-us7",
+    auth: "andreas: " + masterKey,
+    
   };
 
   const request = https.request(url, options, function (response) {
@@ -47,18 +50,21 @@ app.post("/", function (req, res) {
     } else {
       res.sendFile(__dirname + "/public/failure.html");
     }
-    response.on("data", function(data){
-      console.log(JSON.stringify(data))
+    response.on("data", function (data) {
+      //console.log(JSON.stringify(data));
     });
   });
+    request.end();
+  
 
   //request.write(jsonData);
-  request.end();
+
+  
 });
 
-app.post("/failure", function(req, res){
-  res.redirect("/")
-})
+app.post("/failure", function (req, res) {
+  res.redirect("/");
+});
 
 app.listen(process.env.PORT || 3000, function () {
   console.log("Server running on port 3000");
