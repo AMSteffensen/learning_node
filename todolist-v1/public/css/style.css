@@ -30,6 +30,10 @@ html {
     border-bottom: 1px solid #F1F1F1;
   }
   
+  .item__remove {
+    color: red;
+    margin-left: 40px;
+  }
   .item:last-child {
     border-bottom: 0;
   }

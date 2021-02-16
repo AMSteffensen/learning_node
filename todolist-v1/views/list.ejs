@@ -7,7 +7,8 @@
 
     <div class="item">
       <input type="checkbox" />
-      <p><%= newListItems[i] %></p>
+      <p value=<%= newListItems[i] %>><%= newListItems[i] %></p>
+      <span class="item__remove" id="remove"> X </span>
     </div>
     <% } %>
   </ul>
